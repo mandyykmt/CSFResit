@@ -56,34 +56,24 @@ public class BookService {
         String payload = resp.getBody();
         JsonReader reader = Json.createReader(new StringReader(payload)); 
         JsonObject data = reader.readObject();
+        JsonArray arr = data.getJsonArray("results");
+        List<BookReview> reviews = new LinkedList<>();
 
-        BookReview br = new BookReview();
+        for(int i = 0; i < arr.size(); i++) {
+        BookReview br = new BookReview(
+            data.getString("book_title"),
+            data.getString("book_author"),
+            data.getString("byline"),
+            data.getString("publication_dt"),
+            data.getString("summary"),
+            data.getString("url")            
+        );
 
-        br.set(data.getString("book_title"));
-        br.set(data.getString("book_author"));
-        br.set(data.getString("byline"));
-        br.set(data.getString("publication_dt"));
-        br.set(data.getString("summary"));
-        br.set(data.getString("url"));
-
-        JsonArray arrAuthors = data.getJsonArray("authors");
-        List<String> list = new LinkedList<String>();
-        for(int i = 0; i < arrAuthors.length(); i++){
-            list.add(arr.getJSONObject(i));
+        reviews.add(br);
         }
+        
 
-        br.setAuthors(list);
-
-        return data.getJsonArray("bookSummary").stream()
-                .map(v -> v.asJsonObject())
-                .map(o -> new BookReview(
-                    o.getString("book_title"), 
-                    o.getString("book_author"), 
-                    o.getString("byline")),
-                    o.getString("publication_dt"),
-                    o.getString("summary"),
-                    o.getString("url"))
-                .toList();
+        return reviews;
     }
 }
 

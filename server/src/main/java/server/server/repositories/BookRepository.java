@@ -13,7 +13,7 @@ import server.server.models.BookTitle;
 public class BookRepository {
  
     public static final String SQL_GET_IMAGE_BY_CHARACTER = """
-        select title from book2018 where title like ? order by title limit ? offset ? 
+        select title from book2018 where title like concat(?,'%') order by title limit ? offset ? 
         """;
 
     public static final String SQL_GET_BOOKSUMMARY_BY_TITLE = """
@@ -24,7 +24,7 @@ public class BookRepository {
     @Autowired
     private JdbcTemplate template;
 
-    public Optional<BookTitle> getBookTitles(String character, String limit, String offset) {
+    public Optional<BookTitle> getBookTitles(String character, Integer limit, Integer offset) {
       return template.query(SQL_GET_IMAGE_BY_CHARACTER,
           rs -> {
               if (!rs.next())

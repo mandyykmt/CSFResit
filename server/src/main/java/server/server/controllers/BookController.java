@@ -37,11 +37,11 @@ public class BookController {
     @GetMapping(path="/titles")
     @ResponseBody
     public ResponseEntity<String> getTitles (
-                @RequestParam String c,
-                @RequestParam String offset,
-                @RequestParam String limit) {
+                @RequestParam String character,
+                @RequestParam Integer offset,
+                @RequestParam Integer limit) {
 
-        List<JsonObject> titles = bookRepo.getBookTitles(c, offset,limit)
+        List<JsonObject> titles = bookRepo.getBookTitles(character, offset,limit)
                                     .stream()
                                     .map(t ->
                                         Json.createObjectBuilder()
@@ -78,18 +78,20 @@ public class BookController {
                 @RequestParam String title) {
         
         try {
-            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-            bookSvc.getBookReview(title).stream()
-                        .map(d -> Json.createObjectBuilder()
-                                    .add("authors", d.authors())
-                                    .add("pages", d.pages())
-                                    .add("rating", d.rating())
-                                    .add("rating_count", d.rating_count())
-                                    .add("genres", d.genres())
-                                    .add("url", d.url())
-                                    .build())
-                        .forEach(arrayBuilder::add);
-            return ResponseEntity.ok(arrayBuilder.build().toString());
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+            bookSvc.getBookReview(title).forEach(d -> {
+                JsonObject jsonReview = Json.createObjectBuilder()
+                .add("book_title", d.book_title())
+                .add("book_authors", d.book_author())
+                .add("byline", d.byline())
+                .add("publication_dt", d.publication_dt())
+                .add("summary", d.summary())
+                .add("url", d.url())
+                .build();
+            arrBuilder.add(jsonReview); 
+            }); 
+            
+            return ResponseEntity.ok(arrBuilder.build().toString());
                                    
         } catch (BookException ex) {
             return ResponseEntity.status(400)

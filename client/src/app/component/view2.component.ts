@@ -23,7 +23,7 @@ export class View2Component implements OnInit {
   offset: number = 0
   limit: number = 10
   bookAction : BookAction = {
-    currentPage = 0
+    currentPage: 0
   }
 
   ngOnInit(): void {
@@ -37,27 +37,31 @@ export class View2Component implements OnInit {
 
 
   // to work on numbers and logic
-  
+
   previous() {
-    const currentPage = this.bookAction.currentPage
+    let currentPage = this.bookAction.currentPage
     const action : BookAction = {
       currentPage : -10
     }
-    if (currentPage === 10) {
-      return null
-    } else (action.currentPage > 10) {
+    
+    if (currentPage <= 10 ) {
+      return
+    } else if (action.currentPage > 10) {
       currentPage += action.currentPage
     }
     this.titles$ = this.bookSvc.getTitles(this.character, this.limit, currentPage)
   }
 
   next() {
-    const currentPage = this.bookAction.currentPage
+    let maxLength: number
+    this.titles$ = this.bookSvc.getTitles(this.character, this.limit, this.offset)
+    let currentPage = this.bookAction.currentPage
     const action : BookAction = {
       currentPage : 10
     }
-    if (currentPage > (this.titles$.length - 10)) {
-      return null
+    // to calculate number of titles: fix this
+    if (currentPage > (10000 - 10)) {
+      return
     } else {
       currentPage += action.currentPage
     }

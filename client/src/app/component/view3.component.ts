@@ -18,11 +18,11 @@ export class View3Component {
     private http : HttpClient
   ) {}
 
-  character : string = ''
+  title : string = ''
   summary$! : Observable<BookSummary[]>
 
   ngOnInit(): void {
-      this.character = this.activatedRoute.snapshot.params['title']
+      this.title = this.activatedRoute.snapshot.params['title']
       this.summary$ = this.bookSvc.getSummary(this.title)
   }
 
