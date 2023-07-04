@@ -1,0 +1,12 @@
+<form>
+    <table>
+        <thead>
+            <h1>My Bookstore</h1>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of characters">
+                <button type="button" (click)="process(c)">{{ c }}</button>
+            </tr>
+        </tbody>
+    </table>
+</form>

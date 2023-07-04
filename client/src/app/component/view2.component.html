@@ -1,0 +1,31 @@
+<form>
+    <table>
+        <thead>
+            <h1>Letter {{ character }}</h1>
+        </thead>
+        <tbody>
+            <div *ngIf="titles$ | async as titles else noBooksFound">
+                <tr *ngFor="let t of titles; let i = index">
+                    <td>{{ t.title }}</td>
+                </tr>
+            </div>
+            <div>
+                <tr>
+                    <td>
+                        <button type="button" (click)="previous()">Previous</button>
+                    </td>
+                    <td>
+                        <button type="button" (click)="next()">Next</button>
+                    </td>
+                </tr>
+                <tr>
+                    <button type="button" [routerLink]="['/']">
+                        Back
+                    </button>
+                </tr>
+            </div>
+        </tbody>
+    </table>
+</form>
+
+<ng-template #noBooksFound>No Books Found</ng-template>
