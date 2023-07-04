@@ -1,25 +1,32 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, Input } from "@angular/core";
 import { Observable, firstValueFrom } from "rxjs";
-import { BookAction, BookResponse } from "./models";
+import { BookAction, BookResponse, BookReview, BookSummary, BookTitle } from "./models";
+
+const url2 = "/api/titles"
+const url3 = "/api/summary"
+const url4 = "/api/review"
 
 @Injectable()
 export class BookService {
-
-    // @Input()
-    // character : string = 
 
     constructor(
         private http: HttpClient
     ) {}
 
-    // const url = "/api/weather"
+    public getTitles(character : string, limit : number, offset : number) : Observable<BookTitle[]> {
+        const params = new HttpParams().set("character", character).set("limit", limit).set("offset", offset)
+        return this.http.get<BookTitle[]>(`${'url2'}`, { params })
+    }
 
-    // getWeather(city : string, units = 'metric'): Observable<WeatherResponse[]> {
-    //     const params = new HttpParams()
-    //                     .set("city", city)
-    //                     .set("units", units)
+    public getSummary(title : string) : Observable<BookSummary[]> {
+        const params = new HttpParams().set("title", title)
+        return this.http.get<BookSummary[]>(`${'url3'}`, { params })
+    }
 
-    //     return this.http.get<WeatherResponse[]>(`${url}`, {params })
-    // }
+    public getReview(title : string) : Observable<BookReview[]> {
+        const params = new HttpParams().set("book_title", title)
+        return this.http.get<BookReview[]>(`${'url4'}`, { params })
+    }
+    
 }

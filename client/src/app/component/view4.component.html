@@ -1,31 +1,35 @@
 <table>
     <thead></thead>
-    <tbody>
+    <tbody *ngIf="review$ | async as review else noReview">
+        <div *ngFor="let r of review; let i = index">
         <tr>
             <td>Book title:</td>
-            <td></td>
+            <td>{{ r.book_title }}</td>
         </tr>
         <tr>
             <td>Author:</td>
-            <td></td>
+            <td>{{ r.book_author }}</td>
         </tr>
         <tr>
             <td>Reviewer:</td>
-            <td></td>
+            <td>{{ r.byline }}</td>
         </tr>
         <tr>
             <td>Review date:</td>
-            <td></td>
+            <td>{{ r.publication_dt }}</td>
         </tr>
         <tr>
             <td>Summary of review:</td>
-            <td></td>
+            <td>{{ r.summary }}</td>
         </tr>
         <tr>
             <td></td>
             <td>
-                <button type="button">Full review</button>
+                <a href="{{ r.url }}">Full review</a>
             </td>
         </tr>
+        </div>
     </tbody>
 </table>
+
+<ng-template #noReview>No Review Found</ng-template>

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { BookSummary } from '../models';
 import { Observable } from 'rxjs';
+import { BookService } from '../book.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-view3',
@@ -9,5 +12,20 @@ import { Observable } from 'rxjs';
 })
 export class View3Component {
 
-  book$!: Observable<BookSummary[]> 
+  constructor(
+    private bookSvc : BookService,
+    private activatedRoute : ActivatedRoute,
+    private http : HttpClient
+  ) {}
+
+  character : string = ''
+  summary$! : Observable<BookSummary[]>
+
+  ngOnInit(): void {
+      this.character = this.activatedRoute.snapshot.params['title']
+      this.summary$ = this.bookSvc.getSummary(this.title)
+  }
+
+  returnToView1() {}
+
 }

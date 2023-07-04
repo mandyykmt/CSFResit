@@ -12,7 +12,7 @@ import { BookService } from './book.service';
 
 const appRoutes : Routes = [
   {path: '', component: View1Component},
-  {path: 'title/:c', component: View2Component},
+  {path: 'titles/:c', component: View2Component},
   {path: 'summary/:title', component: View3Component},
   {path: 'review/:title', component: View4Component},
   {path: '**', redirectTo: '/', pathMatch: 'full'}

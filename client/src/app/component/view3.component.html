@@ -1,35 +1,44 @@
 <table>
     <thead></thead>
-    <tbody *ngIf="book$ | async as book else noInfo">
-        <div *ngFor="let b of book; let i = index">
+    <tbody *ngIf="summary$ | async as summary else noInfo">
+        <div *ngFor="let s of summary; let i = index">
         <tr>
             <td>Title: </td>
-            <td></td>
+            <td>{{ s.title }}</td>
         </tr>
         <tr>
             <td>Authors</td>
-            <td></td>
+            <td>{{ s.authors }}</td>
         </tr>
         <tr>
             <td>Number of pages: </td>
-            <td></td>
+            <td>{{ s.pages }}</td>
         </tr>
         <tr>
-            <td>Rating and number of people who rated the book:</td>
-            <td></td>
+            <td>Rating:</td>
+            <td>{{ s.rating}}</td>
+        </tr>
+        <tr>
+            <td>Rating count:</td>
+            <td>{{ s.rating_count }}</td>
         </tr>
         <tr>
             <td>Genre:</td>
-            <td></td>
+            <td>{{ s.genres }}</td>
         </tr>
         <tr>
             <td>Book Cover: </td>
-            <td></td>
+            <td>
+                <img src="{{ s.url }}" width="80">
+            </td>
         </tr>
         <tr>
             <td></td>
             <td>
                 <button type="button">Find Review</button>
+                <button type="button" (click)="returnToView1()">
+                    Back
+                </button>
             </td>
         </tr>
     </div>    

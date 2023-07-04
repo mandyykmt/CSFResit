@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BookReview } from '../models';
 
 @Component({
   selector: 'app-view4',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class View4Component {
 
+  review$!: Observable<BookReview[]>
+
+  
 }

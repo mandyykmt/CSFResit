@@ -6,7 +6,9 @@
         <tbody>
             <div *ngIf="titles$ | async as titles else noBooksFound">
                 <tr *ngFor="let t of titles; let i = index">
-                    <td>{{ t.title }}</td>
+                    <td>
+                        <button type="button" (click)="clickTitle(t.title)">{{ t.title }}</button>
+                    </td>
                 </tr>
             </div>
             <div>

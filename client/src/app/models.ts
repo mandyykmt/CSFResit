@@ -1,6 +1,6 @@
 
 export interface BookAction {
-    character: string 
+    currentPage : number 
 }
 
 export interface BookResponse {
@@ -14,8 +14,18 @@ export interface BookTitle {
 export interface BookSummary {
     title: string
     authors: string[]
-    pages: string
-    rating: string
-    genre: string
-    cover: string
+    pages: number
+    rating: number
+    rating_count: number
+    genres: string
+    url: string
+}
+
+export interface BookReview {
+    book_title: string
+    book_author: string
+    byline: string
+    publication_dt: string
+    summary: string
+    url: string
 }

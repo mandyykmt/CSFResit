@@ -21,7 +21,7 @@ import server.server.repositories.BookRepository;
 import server.server.services.BookException;
 import server.server.services.BookService;
 
-// http://developer.nytimes.com/docs/books-product/1/routes/reviews.json.get
+
 
 @Controller
 @CrossOrigin(origins = "*")
@@ -34,7 +34,7 @@ public class BookController {
     @Autowired
     private BookRepository bookRepo; 
 
-    @GetMapping(path="/title")
+    @GetMapping(path="/titles")
     @ResponseBody
     public ResponseEntity<String> getTitles (
                 @RequestParam String c,
@@ -100,5 +100,4 @@ public class BookController {
                                 );
         }   
     }
-}
 }
